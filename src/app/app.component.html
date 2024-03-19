@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <h1 class="text-center">Todo App</h1>
+  <hr>
+<div *ngIf="!isUpdateFormActive; else active">
+  <div class="form-group">
+    <label for="work">Yapılacak iş</label>
+    <input [(ngModel)]="work" type="text" class="form-control" 
+    [ngClass]="changeInputClas()" name="work" id="work">
+  <div class="invalid-feedback">
+    En az 3 karakter girmelisiniz!
+  </div>
+  
+  </div>
+  <div class="form-group mt-2">
+    <button [disabled]="work.length<3" (click)="save()" class="btn btn-outline-primary w-100">Kaydet</button>
+  </div>
+</div>
+
+<ng-template #active>
+  <div class="form-group">
+    <label for="work">Yapılacak iş</label>
+    <input [(ngModel)]="updateWork" type="text" class="form-control" name="work" id="work">
+  </div>
+  <div class="form-group mt-2">
+    <button (click)="update()" class="btn btn-outline-warning w-100">Güncelle</button>
+    <button (click)="cancel()" class="btn btn-sm btn-outline-success w-100 mt-1">Vazgeç</button>
+  </div>
+</ng-template>
+
+  <hr>
+
+  <ul>
+    <li class="mt-1" *ngFor="let w of works let i=index">
+      {{w}} 
+      <div *ngIf="!isUpdateFormActive">
+        <button (click)="get(w,i)" class="btn btn-outline-warning btn-sm mx-1">Güncelle</button>
+        <button (click)="remove(i)" class="btn btn-outline-danger btn-sm">Sil</button>
+      </div>
+    </li>
+  </ul>
+</div>
